@@ -1,3 +1,4 @@
+//Humberto Hernández Trejo
 public class Model {
     private double beta_0;
     private double beta_1;

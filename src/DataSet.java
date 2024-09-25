@@ -1,4 +1,5 @@
-import java.util.List; // Importa la clase List, que se utiliza para manejar listas de elementos
+import java.util.List;
+//Humberto Hernández Trejo
 
 public class DataSet {
     // Declaración de las variables privadas x e y, que son listas de números decimales (Double)

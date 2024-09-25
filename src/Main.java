@@ -1,4 +1,5 @@
 import java.util.*;
+//Humberto Hernández Trejo
 
 public class Main {
     public static void main(String[] args) {
@@ -13,7 +14,7 @@ public class Main {
         // Realizamos el proceso dos veces y seleccionamos el mejor modelo basado en el coeficiente de determinación (R²)
         Model bestModel = null;
         double bestRSquared = -1;
-
+        // Dos segmentos para el conjunto de datos
         for (int i = 0; i < 2; i++) {
             System.out.println("Segmentación " + (i + 1) + ":");
 
@@ -21,6 +22,7 @@ public class Main {
             DataSet trainSet = new DataSet(new ArrayList<>(), new ArrayList<>());
             DataSet testSet = new DataSet(new ArrayList<>(), new ArrayList<>());
 
+            // Llama al método para dividir el conjunto de datos
             splitDataSet(batchSize, efficiency, trainSet, testSet, 0.7);
 
             // Crear el modelo de regresión para el conjunto de entrenamiento
@@ -52,6 +54,7 @@ public class Main {
         // Predicciones (usando valores conocidos y desconocidos)
         double[] testBatchSizes = {30.0, 45.0, 108.0, 50.0, 75.0};
         System.out.println("Predicciones con el mejor modelo:");
+        // Realiza predicciones utilizando el mejor modelo
         for (double batch : testBatchSizes) {
             double predictedEfficiency = bestModel.predict(batch);
             System.out.println("Batch Size " + batch + " -> Machine Efficiency (predicha): " + predictedEfficiency);
@@ -61,17 +64,19 @@ public class Main {
     // Método para dividir el dataset en entrenamiento y prueba
     private static void splitDataSet(List<Double> x, List<Double> y, DataSet trainSet, DataSet testSet, double trainPercentage) {
         int dataSize = x.size();
-        List<Integer> indices = new ArrayList<>();
+        List<Integer> indices = new ArrayList<>();// Lista para almacenar los índices de los datos
         for (int i = 0; i < dataSize; i++) {
             indices.add(i);
         }
         Collections.shuffle(indices);
 
-        int trainSize = (int) (dataSize * trainPercentage);
+        int trainSize = (int) (dataSize * trainPercentage); // Calcula el tamaño del conjunto de entrenamiento
+        // Llena el conjunto de entrenamiento
         for (int i = 0; i < trainSize; i++) {
             trainSet.getX().add(x.get(indices.get(i)));
             trainSet.getY().add(y.get(indices.get(i)));
         }
+        // Llena el conjunto de prueba
         for (int i = trainSize; i < dataSize; i++) {
             testSet.getX().add(x.get(indices.get(i)));
             testSet.getY().add(y.get(indices.get(i)));
